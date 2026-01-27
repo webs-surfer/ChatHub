@@ -1,0 +1,130 @@
+💬 ChatHub – Real-Time MERN Chat Application
+
+ChatHub is a full-stack real-time chat application built using the MERN stack (MongoDB, Express.js, React.js, Node.js) with Socket.io for instant, bi-directional communication. It allows users to securely register, log in, and chat with others in real time through a modern and responsive interface.
+
+🚀 Features
+
+🔐 JWT-based User Authentication
+
+👤 Secure User Registration & Login
+
+💬 One-to-One and Group Chats
+
+⚡ Real-Time Messaging using Socket.io
+
+✍️ Typing Indicators
+
+🟢 Online / Offline User Status
+
+🔍 Search Users to Start Chats
+
+📸 User Profile Picture Support
+
+🔒 Protected Routes with Middleware
+
+🛠️ Tech Stack
+Frontend
+
+React.js
+
+Chakra UI
+
+Socket.io Client
+
+Backend
+
+Node.js
+
+Express.js
+
+MongoDB (Mongoose)
+
+Socket.io
+
+JWT Authentication
+
+bcrypt
+
+📁 Project Structure
+ChatHub/
+│
+├── backend/
+│   ├── config/
+│   ├── controllers/
+│   ├── models/
+│   ├── routes/
+│   └── server.js
+│
+├── frontend/
+│   ├── src/
+│   └── public/
+│
+└── README.md
+
+⚙️ Installation & Setup
+1️⃣ Clone the repository
+git clone https://github.com/your-username/ChatHub.git
+cd ChatHub
+
+2️⃣ Backend Setup
+cd backend
+npm install
+
+
+Create a .env file inside backend/:
+
+PORT=5000
+MongoDB_URI=your_mongodb_connection_string
+JWT_SECRET=your_jwt_secret
+
+
+Start backend server:
+
+npm run dev
+
+3️⃣ Frontend Setup
+cd frontend
+npm install
+npm start
+
+🔐 Authentication Flow
+
+Passwords are encrypted using bcrypt
+
+JWT tokens are generated on login/register
+
+Protected routes verify JWT tokens using middleware
+
+⚡ Real-Time Communication
+
+Socket.io handles real-time messaging
+
+Events for:
+
+Sending & receiving messages
+
+Typing indicators
+
+User online/offline status
+
+📌 Future Enhancements
+
+Message read receipts
+
+Media & file sharing
+
+Push notifications
+
+End-to-end encryption
+
+🎯 Purpose
+
+ChatHub was built to practice and demonstrate full-stack development, real-time communication, and secure authentication using modern web technologies.
+
+👨‍💻 Author
+
+Rohan Adhikari
+
+⭐ Support
+
+If you like this project, give it a ⭐ on GitHub!
