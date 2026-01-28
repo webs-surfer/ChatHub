@@ -16,8 +16,8 @@ const HomePage = () => {
         borderRadius="lg"
         borderWidth="1px"
       >
-        <Text fontSize="4xl" fontFamily="Work Sans" color="black">
-          Talk-A-Tive
+        <Text fontSize="4xl" fontFamily="Work Sans" color="Black">
+          ChatHub
         </Text>
       </Box>
       <Box bg="white" w="100%" p={4} borderRadius="lg" borderWidth="1px">
