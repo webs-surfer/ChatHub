@@ -8,9 +8,9 @@ import {
   InputRightElement,
   useToast,
   VStack,
+  Box,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import API from "../../api/axios";
 
 function Login() {
@@ -53,7 +53,7 @@ function Login() {
 
       localStorage.setItem("userInfo", JSON.stringify(data));
       setLoading(false);
-      navigate("/chats");
+      navigate("/chats", { replace: true });
 
     } catch (error) {
       toast({
@@ -68,23 +68,35 @@ function Login() {
     }
   };
 
+  const handleDemoLogin = () => {
+    handleLogin("demo@example.com", "demo123");
+  };
+
   return (
-    <VStack spacing="5px">
-      <FormControl id="email" isRequired>
-        <FormLabel>Email Address</FormLabel>
+    <VStack spacing={2} color="black">
+      <FormControl id="login-email-input" isRequired>
+        <FormLabel fontWeight="bold">Email Address</FormLabel>
         <Input
+          id="login-email-input"
           type="email"
           placeholder="Enter Your Email Address"
           onChange={(e) => setEmail(e.target.value)}
+          borderRadius="md"
+          focusBorderColor="#1e88e5"
+          autoComplete="email"
         />
       </FormControl>
-      <FormControl id="password" isRequired>
-        <FormLabel>Password</FormLabel>
+      <FormControl id="login-password-input" isRequired>
+        <FormLabel fontWeight="bold">Password</FormLabel>
         <InputGroup>
           <Input
+            id="login-password-input"
             type={show ? "text" : "password"}
             placeholder="Enter Your Password"
             onChange={(e) => setPassword(e.target.value)}
+            borderRadius="md"
+            focusBorderColor="#1e88e5"
+            autoComplete="current-password"
           />
           <InputRightElement width="4.5rem">
             <Button h="1.75rem" size="sm" onClick={handleShowClick}>
@@ -94,26 +106,30 @@ function Login() {
         </InputGroup>
       </FormControl>
 
-      <Button
-        colorScheme="blue"
-        width="100%" style={{ marginTop: 15 }}
-        onClick={handleLogin} isLoading={loading}
-      >
-        Log In
-      </Button>
-      <Button
-        variant="solid"
-        colorScheme="red"
-        width="100%"
-        onClick={() => {
-          setEmail("guest@example.com");
-          setPassword("123456");
-          handleLogin("guest@example.com", "123456");
-        }}
-      >
-        Get Guest User Credentials
-      </Button>
-
+      <Box w="100%">
+        <Button
+          colorScheme="blue"
+          width="100%"
+          onClick={handleLogin}
+          isLoading={loading}
+          mb={3}
+          borderRadius="md"
+          fontSize="md"
+          fontWeight="bold"
+        >
+          Login
+        </Button>
+        <Button
+          width="100%"
+          variant="outline"
+          colorScheme="blue"
+          onClick={handleDemoLogin}
+          isLoading={loading}
+          borderRadius="md"
+        >
+          Get Demo Credentials
+        </Button>
+      </Box>
     </VStack>
   );
 }

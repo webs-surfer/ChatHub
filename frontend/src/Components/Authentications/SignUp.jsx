@@ -8,7 +8,6 @@ import {
   VStack,
   useToast,
 } from "@chakra-ui/react";
-import axios from "axios";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import API from "../../api/axios";
@@ -21,8 +20,9 @@ const SignUp = () => {
   const [confirmPassword, setConfirmPassword] = React.useState("");
   const [pic, setPic] = React.useState("");
   const [loading, setLoading] = React.useState(false);
-  const handleShowClick = () => setShow(!show)
   const navigate = useNavigate();
+  const toast = useToast();
+  const handleShowClick = () => setShow(!show);
   const handleSignUp = async () => {
     setLoading(true);
     if (!name || !email || !password || !confirmPassword) {
@@ -59,11 +59,11 @@ const SignUp = () => {
       });
       localStorage.setItem("userInfo", JSON.stringify(data));
       setLoading(false);
-      navigate('/chats');
+      navigate('/chats', { replace: true });
     } catch (error) {
       toast({
         title: "Error Occurred!",
-        description: error.response.data.message,
+        description: error.response?.data?.message || "Something went wrong",
         status: "error",
         duration: 5000,
         isClosable: true,
@@ -72,7 +72,6 @@ const SignUp = () => {
       setLoading(false);
     }
   }
-  const toast = useToast()
   const PostDetails = (pics) => {
   setLoading(true);
 
@@ -133,29 +132,41 @@ const SignUp = () => {
 
   return (
     <VStack spacing="5px">
-      <FormControl id="first-name" isRequired>
-        <FormLabel>Name</FormLabel>
+      <FormControl id="signup-name-input" isRequired>
+        <FormLabel fontWeight="bold">Name</FormLabel>
         <Input
+          id="signup-name-input"
           type="text"
           placeholder="Enter Your Name"
           onChange={(e) => setName(e.target.value)}
+          borderRadius="md"
+          focusBorderColor="#1e88e5"
+          autoComplete="name"
         />
       </FormControl>
-      <FormControl id="email" isRequired>
-        <FormLabel>Email Address</FormLabel>
+      <FormControl id="signup-email-input" isRequired>
+        <FormLabel fontWeight="bold">Email Address</FormLabel>
         <Input
+          id="signup-email-input"
           type="email"
           placeholder="Enter Your Email Address"
           onChange={(e) => setEmail(e.target.value)}
+          borderRadius="md"
+          focusBorderColor="#1e88e5"
+          autoComplete="email"
         />
       </FormControl>
-      <FormControl id="password" isRequired>
-        <FormLabel>Password</FormLabel>
+      <FormControl id="signup-password-input" isRequired>
+        <FormLabel fontWeight="bold">Password</FormLabel>
         <InputGroup>
           <Input
+            id="signup-password-input"
             type={show ? "text" : "password"}
             placeholder="Enter Your Password"
             onChange={(e) => setPassword(e.target.value)}
+            borderRadius="md"
+            focusBorderColor="#1e88e5"
+            autoComplete="new-password"
           />
           <InputRightElement width="4.5rem">
             <Button h="1.75rem" size="sm" onClick={handleShowClick}>
@@ -165,13 +176,17 @@ const SignUp = () => {
           </InputRightElement>
         </InputGroup>
       </FormControl>
-      <FormControl id="Confirm-password" isRequired>
-        <FormLabel>Confirm Password</FormLabel>
+      <FormControl id="signup-confirm-password-input" isRequired>
+        <FormLabel fontWeight="bold">Confirm Password</FormLabel>
         <InputGroup>
           <Input
+            id="signup-confirm-password-input"
             type={show ? "text" : "password"}
             placeholder="Confirm Your Password"
             onChange={(e) => setConfirmPassword(e.target.value)}
+            borderRadius="md"
+            focusBorderColor="#1e88e5"
+            autoComplete="new-password"
           />
           <InputRightElement width="4.5rem">
             <Button h="1.75rem" size="sm" onClick={handleShowClick}>
@@ -181,17 +196,23 @@ const SignUp = () => {
           </InputRightElement>
         </InputGroup>
       </FormControl>
-      <FormControl id="pic">
-        <FormLabel>Upload your Picture</FormLabel>
+      <FormControl id="signup-pic-input">
+        <FormLabel fontWeight="bold">Upload your Picture</FormLabel>
         <Input
+          id="signup-pic-input"
           type="file"
           p={1.5}
           accept="image/*"
           onChange={(e) => PostDetails(e.target.files[0])}
+          borderRadius="md"
         />
       </FormControl>
       <Button
-        colorScheme="blue" width="100%" style={{ marginTop: 15 }} onClick={handleSignUp} isLoading={loading}>
+        colorScheme="blue" width="100%" onClick={handleSignUp} isLoading={loading}
+        borderRadius="md"
+        fontSize="md"
+        fontWeight="bold"
+      >
         Sign Up
       </Button>
     </VStack>
