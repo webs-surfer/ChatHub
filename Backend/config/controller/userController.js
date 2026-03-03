@@ -79,6 +79,20 @@ const authUser = async (req, res) => {
     }
 }
 
+const updateProfile = async (req, res) => {
+  const { name, pic } = req.body;
+  try {
+    const updated = await User.findByIdAndUpdate(
+      req.user._id,
+      { name, pic },
+      { new: true }
+    ).select("-password");
+    res.json(updated);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+};
+
 const allUsers = async (req,res)=>{
     const keyword = req.query.search?{
         $or:[
@@ -90,4 +104,4 @@ const allUsers = async (req,res)=>{
     res.send(users);
 }
 
-module.exports = {registerUser, authUser,allUsers};
+module.exports = {registerUser, authUser,allUsers, updateProfile};
