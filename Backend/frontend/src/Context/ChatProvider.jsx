@@ -6,7 +6,7 @@ const ChatContext = createContext();
 const ChatProvider = ({ children }) => {
   const [selectedChat, setSelectedChat] = useState(null);
   const [user, setUser] = useState(() => {
-    // lazy initializer reads from localStorage once
+    
     try {
       return JSON.parse(localStorage.getItem("userInfo"));
     } catch {
@@ -19,7 +19,7 @@ const ChatProvider = ({ children }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // if there is no user stored, redirect to home/login
+   
     if (!user) navigate("/");
   }, [navigate, user]);
 

@@ -158,6 +158,10 @@ const GroupInfoModal = ({ fetchMessages, setFetchAgain, fetchAgain }) => {
         chatId: selectedChat._id,
         userId: memberToRemove._id,
       });
+      socket.emit("removed from group", {
+        chatId: selectedChat._id,
+        userId: memberToRemove._id,
+      });
       setSelectedChat(data);
       setFetchAgain(!fetchAgain);
       toast({

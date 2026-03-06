@@ -68,6 +68,9 @@ io.on("connection", (socket) => {
   socket.on("stop typing", (roomId) => {
     socket.in(roomId).emit("stop typing");
   });
+  socket.on("removed from group", ({ chatId, userId }) => {
+    socket.in(userId).emit("removed from group", chatId);
+  });
 
   socket.on("new message", (newMessage) => {
     const chat = newMessage.chat;

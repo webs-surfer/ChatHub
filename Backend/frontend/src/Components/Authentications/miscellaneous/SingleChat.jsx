@@ -68,6 +68,12 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     socket.on("connected", () => setSocketConnected(true));
     socket.on('typing', () => setIsTyping(true));
     socket.on('stop typing', () => setIsTyping(false));
+    socket.on("removed from group", (chatId) => {
+      if (selectedChatCompare?._id === chatId) {
+        setSelectedChat(null);
+        setMessages([]);
+      }
+    });
 
     // FIX 3: Cleanup socket listeners on unmount to prevent memory leaks
     return () => {
@@ -75,6 +81,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
       socket.off("message received");
       socket.off("typing");
       socket.off("stop typing");
+      socket.off("removed from group");
       socket.disconnect();
     };
   }, []);

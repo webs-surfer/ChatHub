@@ -12,6 +12,7 @@ import {
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import API from "../../api/axios";
+import { ChatState } from "../../Context/ChatProvider";
 
 function Login() {
   const [show, setShow] = React.useState(false);
@@ -21,6 +22,7 @@ function Login() {
   const handleShowClick = () => setShow(!show);
   const navigate = useNavigate();
   const toast = useToast();
+  const { setUser } = ChatState(); // ✅ get setUser from context
 
   const handleLogin = async (loginEmail = email, loginPassword = password) => {
     if (!loginEmail || !loginPassword) {
@@ -42,7 +44,8 @@ function Login() {
       });
 
       localStorage.setItem("userInfo", JSON.stringify(data));
-
+      setUser(data); // ✅ update context immediately
+      
       toast({
         title: "Login Successful",
         status: "success",
@@ -50,8 +53,7 @@ function Login() {
         isClosable: true,
       });
 
-      // ✅ Wait for localStorage to be set before navigating
-      setTimeout(() => navigate("/chats"), 500);
+      navigate("/chats"); // ✅ no setTimeout needed
 
     } catch (error) {
       toast({
